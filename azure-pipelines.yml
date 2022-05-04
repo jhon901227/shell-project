@@ -1,0 +1,24 @@
+#triggering
+trigger: 
+  - main
+  - develop
+  - release
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '16.x'
+    displayName: 'Installing Node JS'
+ 
+  - script: |
+     npm install -g @angular/cli
+     npm install
+    displayName: 'npm install'  
+
+  - script: |
+      ng build --prod
+    displayName: 'Haciendo build'  
+
