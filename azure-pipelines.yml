@@ -1,4 +1,4 @@
-#triggering develop other
+#triggering develop other final
 trigger: 
   - main
   - develop
