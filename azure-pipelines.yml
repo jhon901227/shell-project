@@ -1,4 +1,4 @@
-#triggering develop
+#triggering develop other
 trigger: 
   - main
   - develop
