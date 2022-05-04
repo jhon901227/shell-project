@@ -1,4 +1,4 @@
-#triggering features
+#triggering develop
 trigger: 
   - main
   - develop
