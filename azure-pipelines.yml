@@ -22,3 +22,31 @@ steps:
       ng build --prod
     displayName: 'Haciendo build'  
 
+  - task: ArchiveFiles@2
+    inputs:
+     rootFolderOrFile: '$(Pipeline.Workspace)/s/dist/shell-project'
+     includeRootFolder: true
+     archiveType: 'zip'
+     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+     replaceExistingArchive: true
+    displayName: 'archiving files'
+    condition: |
+     or (
+        eq(variables['Build.SourceBranch'],'refs/heads/develop'),
+        eq(variables['Build.SourceBranch'],'refs/heads/main'),
+        eq(variables['Build.SourceBranch'],'refs/heads/release')
+         )
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+       PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+       ArtifactName: 'drop'
+       publishLocation: 'Container'
+    displayName: 'publishing artifact'      
+    condition: |
+     or (
+        eq(variables['Build.SourceBranch'],'refs/heads/develop'),
+        eq(variables['Build.SourceBranch'],'refs/heads/main'),
+        eq(variables['Build.SourceBranch'],'refs/heads/release')
+         )
+
